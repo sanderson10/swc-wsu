@@ -23,6 +23,7 @@ Three countries of interest are Brazil, Tanzania, and France. We are interested 
 ```{r, LoadingLibraries, echo=FALSE, message=FALSE}
 library(dplyr)
 library(ggplot2)
+library(knitr)
 ```
 
 ###Brazil
@@ -53,7 +54,24 @@ All three countries have experience growth over the last 60 years, but each of t
 ```{r, LifeExpTable, echo=FALSE, message=FALSE, fig.height=3}
 gapminder %>%
   group_by(continent) %>%
-  summarize(Mean=mean(lifeExp), Minimum=min(lifeExp), Maximum=max(lifeExp))
+  summarize(Mean=mean(lifeExp), Minimum=min(lifeExp), Maximum=max(lifeExp)) %>%
+  kable
 ```
   
-Oceania and Europe are the regions with _highest_ average life expectancy while Africa is the region with the _lowest_ average life expectancy.  Africa and Asia are regions with countries that have some of the _lowest_ life expectancies while all regions have some countries with relatively _high_ life expectancy. 
+Oceania and Europe are the regions with _highest_ average life expectancy while Africa is the region with the _lowest_ average life expectancy.  Africa and Asia are regions with countries that have some of the _lowest_ life expectancies while all regions have some countries with relatively _high_ life expectancy. The following two histograms show a distribution of life expectancy. 
+
+Non-fixed Bin Width
+```{r, Histogram1, echo=FALSE, message=FALSE}
+gapminder %>%
+  filter(year==2007) %>%
+  ggplot(aes(x=lifeExp, fill=continent)) + geom_histogram(color="black")
+```
+  
+Fixed Bin Width
+```{r, Histogram2, echo=FALSE, message=FALSE}
+gapminder %>%
+  filter(year==2007) %>%
+  ggplot(aes(x=lifeExp, fill=continent)) + geom_histogram(binwidth=2.5, color="black")
+```
+
+Binning lumps individual ages together to create larger groups. African countries predominately make up the lower range of life expectancies while Europe, Asia, and the Americans make up most of the bins containing higher life expectancies. Greater numbers of countries fall into the bins with life expectancies greater than 70 compared to bins with life exptectancies less than 70 years of age. Both binning methods illustrate the pattern, but the smaller bin widths (from the default) make it easier to pin point a medium value. 
