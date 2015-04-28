@@ -1,0 +1,3 @@
+This is where I am keeping notes on this project.
+
+Make changes on one file
