@@ -1,0 +1,50 @@
+---
+title: "Capstone Exercise Anderson"
+author: "Sarah Anderson"
+date: "Tuesday, April 28, 2015"
+output: html_document
+---
+
+##Capstone Exercise for the Software Carpentry Workshop
+
+We will be using the Rmd files to create a short analysis report of the gapminder dataset.  
+
+The gapminder dataset includes data on GDP, life expectancy, and population for various years for each country worldwide.
+
+```{r, LoadingData, echo=FALSE, message=FALSE}
+gapminder<- read.csv("data/gapminder.csv")
+head(gapminder)
+```
+
+Three countries of interest are Brazil, Tanzania, and France. We are interested in how GDP has changed in each of these three countries overtime.  
+  
+  
+
+```{r, LoadingLibraries, echo=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+
+###Brazil
+```{r, BrazilPlot, echo=FALSE, message=FALSE, fig.height=3}
+gapminder %>%
+  filter(country == "Brazil") %>%
+  ggplot(aes(x=year, y=gdpPercap)) + geom_point(color="darkblue", size = 3) + geom_line(color="violet")
+```
+  
+###Tanzania
+```{r, TanzaniaPlot, echo=FALSE, message=FALSE, fig.height=3}
+gapminder %>%
+  filter(country == "Tanzania") %>%
+  ggplot(aes(x=year, y=gdpPercap)) + geom_point(color="darkblue", size = 3) + geom_line(color="violet")
+```
+
+
+###France
+```{r, FrancePlot, echo=FALSE, message=FALSE, fig.height=3}
+gapminder %>%
+  filter(country == "France") %>%
+  ggplot(aes(x=year, y=gdpPercap)) + geom_point(color="darkblue", size = 3) + geom_line(color="violet")
+```
+
+All three countries have experience growth over the last 60 years, but each of these countries have experience a different pattern. Brazil has experience periods of rapid growth with some periods of slight decline but a consistent trend in growing GDP. Tanzania experienced rapid growth in the 1960s and 1970s but then had a long period of decline before exponential growth starting around 2000. France has experienced consistent linear growth throughout the whole time period. 
